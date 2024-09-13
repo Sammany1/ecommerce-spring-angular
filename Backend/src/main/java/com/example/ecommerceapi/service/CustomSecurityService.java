@@ -2,7 +2,6 @@ package com.example.ecommerceapi.service;
 
 import com.example.ecommerceapi.model.User;
 import com.example.ecommerceapi.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -10,8 +9,11 @@ import org.springframework.stereotype.Service;
 @Service("customSecurityService")
 public class CustomSecurityService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public CustomSecurityService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public boolean isUserOwnProfile(Long userId) {
         // Get the currently authenticated user

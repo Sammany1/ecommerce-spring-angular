@@ -3,7 +3,6 @@ package com.example.ecommerceapi.controller;
 import com.example.ecommerceapi.dto.UserDTO;
 import com.example.ecommerceapi.service.CustomSecurityService;
 import com.example.ecommerceapi.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +12,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
 
-    @Autowired
-    private CustomSecurityService customSecurityService;
+    private final UserService userService;
+    private final CustomSecurityService customSecurityService;
+
+    public UserController(UserService userService, CustomSecurityService customSecurityService) {
+        this.userService = userService;
+        this.customSecurityService = customSecurityService;
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
