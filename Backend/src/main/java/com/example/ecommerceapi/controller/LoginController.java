@@ -1,7 +1,6 @@
 package com.example.ecommerceapi.controller;
 
 import com.example.ecommerceapi.dto.LoginRequest;
-import com.example.ecommerceapi.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,16 +20,11 @@ public class LoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
-
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @PostMapping("/api/auth/login")
     public String login(@RequestBody LoginRequest loginRequest) {
         try {
-            // Load user details
-            UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
             logger.info("User details loaded for username: {}", loginRequest.getUsername());
 
             // Authenticate user

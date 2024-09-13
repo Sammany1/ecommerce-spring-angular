@@ -1,6 +1,8 @@
 package com.example.ecommerceapi.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.ecommerceapi.exception.CustomAccessDeniedHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,26 +11,38 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    private static final Logger logger = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
+
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/auth/login").permitAll()
-                            .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                            .requestMatchers("/api/users/**").hasRole("USER")
-                            .requestMatchers("/api/moderators/**").permitAll()
-                            .anyRequest().authenticated();
+                    auth.requestMatchers("/api/users/me").hasRole("USER");
+                    auth.anyRequest().authenticated();
                 })
+                .exceptionHandling(exception -> exception.accessDeniedHandler(accessDeniedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .httpBasic(Customizer.withDefaults()); // Use basic authentication.httpBasic(Customizer.withDefaults()); // Use basic authenticationBasic(); // Use basic authentication
+                .httpBasic(Customizer.withDefaults()); // Use basic authentication
+
+        http.addFilterBefore((request, response, chain) -> {
+            logger.info("Security context: {}", SecurityContextHolder.getContext().getAuthentication());
+            chain.doFilter(request, response);
+        }, BasicAuthenticationFilter.class);
+
         return http.build();
     }
 
