@@ -2,7 +2,6 @@ package com.example.ecommerceapi.controller;
 
 import com.example.ecommerceapi.dto.LoginRequest;
 import com.example.ecommerceapi.security.CustomUserDetailsService;
-import com.example.ecommerceapi.security.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,9 +24,6 @@ public class LoginController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtTokenService jwtTokenService;
-
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @PostMapping("/api/auth/login")
@@ -43,9 +39,7 @@ public class LoginController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             logger.info("User authenticated successfully for username: {}", loginRequest.getUsername());
 
-            // Generate JWT token
-            String token = jwtTokenService.generateToken(authentication);
-            return "Login successful. Token: " + token;
+            return "Login successful";
         } catch (AuthenticationException e) {
             logger.error("Authentication failed for username: {}", loginRequest.getUsername(), e);
             return "Login failed: " + e.getMessage();

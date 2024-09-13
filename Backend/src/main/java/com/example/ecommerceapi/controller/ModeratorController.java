@@ -23,5 +23,4 @@ public class ModeratorController {
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
-
 }
