@@ -23,7 +23,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableWebSecurity
 public class SecurityConfig {
     private static final Logger logger = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
-
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
@@ -31,7 +30,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/users/me").hasRole("USER");
+                    auth.requestMatchers("/api/users/me").hasAuthority("USER");
                     auth.anyRequest().authenticated();
                 })
                 .exceptionHandling(exception -> exception.accessDeniedHandler(accessDeniedHandler))
