@@ -21,6 +21,7 @@ public class PaymentDetail {
     private LocalDateTime updatedAt;
 
     // Getters and Setters
+
     public Long getId() {
         return id;
     }
@@ -66,3 +67,14 @@ public class PaymentDetail {
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+}
