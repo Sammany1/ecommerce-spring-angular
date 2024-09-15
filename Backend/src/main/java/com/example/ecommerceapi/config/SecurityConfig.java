@@ -30,11 +30,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/users/me").hasAnyAuthority("USER", "ADMIN");
-                    auth.requestMatchers("/api/users/{id}").hasAuthority("ADMIN");
-                    auth.requestMatchers("/api/users").hasAuthority("ADMIN");
-                    auth.requestMatchers("/api/users/{id}").hasAuthority("ADMIN");
-                    auth.requestMatchers("/api/users/{id}/role").hasAuthority("ADMIN");
+//                    auth.requestMatchers("/api/users/me").hasAnyAuthority("USER", "ADMIN");
+//                    auth.requestMatchers("/api/users/{id}").hasAuthority("ADMIN");
+//                    auth.requestMatchers("/api/users").hasAuthority("ADMIN");
+//                    auth.requestMatchers("/api/users/{id}").hasAuthority("ADMIN");
+//                    auth.requestMatchers("/api/users/{id}/role").hasAuthority("ADMIN");
+                    auth.requestMatchers("api/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .exceptionHandling(exception -> exception.accessDeniedHandler(accessDeniedHandler))

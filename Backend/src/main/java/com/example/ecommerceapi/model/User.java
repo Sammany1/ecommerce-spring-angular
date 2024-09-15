@@ -3,6 +3,7 @@ package com.example.ecommerceapi.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -31,7 +32,16 @@ public class User {
     private LocalDateTime lastLoginAt;
     private String passwordResetToken;
     private LocalDateTime passwordResetTokenExpiry;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses;
 
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
 
     public Long getId() {
         return id;

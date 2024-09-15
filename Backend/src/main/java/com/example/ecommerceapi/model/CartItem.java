@@ -1,0 +1,85 @@
+package com.example.ecommerceapi.model;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "CART_ITEM")
+public class CartItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "CART_ID", nullable = false)
+    private Cart cart;
+
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "PRODUCTS_SKU_ID", nullable = false)
+    private ProductSku productSku;
+
+    private Integer quantity;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public ProductSku getProductSku() {
+        return productSku;
+    }
+
+    public void setProductSku(ProductSku productSku) {
+        this.productSku = productSku;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+}
