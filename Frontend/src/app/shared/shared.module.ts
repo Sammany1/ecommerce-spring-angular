@@ -16,6 +16,10 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    NavbarComponent,
+    FooterComponent
   ]
 })
 export class SharedModule { }

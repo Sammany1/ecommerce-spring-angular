@@ -1,0 +1,129 @@
+.navbar-light {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--Grey-Light, #f1f1f1);
+        font-family: Open Sans, sans-serif;
+        color: var(--Dark2, #000);
+        padding: 40px 69px;
+        flex-wrap: wrap;
+        gap: 40px 70px;
+    }
+
+    .logo {
+        font-size: 34px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .navigation {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        font-size: 17px;
+        flex-wrap: wrap;
+    }
+
+    .nav-list {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        gap: 40px;
+    }
+
+    .nav-item {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .search-form {
+        display: flex;
+        align-items: center;
+        border-radius: 7.518px;
+        border: 1.074px solid var(--Dark2, #000);
+        background-color: var(--Grey-Light2, #cdcdcd);
+        padding: 8px 11px;
+        gap: 24px;
+    }
+
+    .search-input {
+        background: transparent;
+        border: none;
+        font-size: 21px;
+        outline: none;
+    }
+
+    .search-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .search-icon {
+        width: 26px;
+        height: 26px;
+        object-fit: contain;
+    }
+
+    .auth-buttons {
+        display: flex;
+        gap: 20px;
+    }
+
+    .btn {
+        border-radius: 12.888px;
+        padding: 11px 21px;
+        font-size: 17px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .btn-secondary {
+        background-color: var(--Grey-Light2, #cdcdcd);
+        color: var(--Dark2, #000);
+    }
+
+    .btn-primary {
+        background-color: var(--Blue-Dark, #35314c);
+        color: var(--Light, #f5f5f5);
+    }
+
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    @media (max-width: 991px) {
+        .navbar-light {
+            padding: 20px;
+        }
+
+        .navigation {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .nav-list {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-form {
+            width: 100%;
+            max-width: 446px;
+        }
+
+        .auth-buttons {
+            width: 100%;
+            justify-content: center;
+        }
+    }
